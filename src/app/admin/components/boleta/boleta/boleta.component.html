@@ -1,0 +1,368 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4>BOLETA ELECTRÓNICA</h4>
+            <p class="card-category">Documento electronico valido por Sunat</p>
+          </div>
+          <div class="card-body">
+            <div *ngIf="loading" class="loader-background">
+              <div class="loader"></div>
+            </div>
+
+            <form [formGroup]="form">
+              <mat-card class="shipping-card">
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field class="full-width">
+                        <mat-label>Tipo Doc. Ident.</mat-label>
+                        <mat-select
+                          formControlName="cliente_tipodocumento"
+                          value="1"
+                        >
+                          <mat-option
+                            *ngFor="let doc of tipoDoc"
+                            [value]="doc.value"
+                          >
+                            {{ doc.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="legacy">
+                        <mat-label>No: de RUC/DNI</mat-label>
+                        <input
+                          matInput
+                          placeholder="Placeholder"
+                          type="text"
+                          formControlName="cliente_numerodocumento"
+                        />
+                        <button
+                          matSuffix
+                          mat-button
+                          (click)="buscarRuc($event)"
+                        >
+                          <mat-icon>search</mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="full-width">
+                        <input
+                          placeholder="Razon Social"
+                          formControlName="cliente_nombre"
+                          matInput
+                          type="text"
+                        />
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field class="full-width">
+                        <input
+                          placeholder="Direccion"
+                          formControlName="cliente_direccion"
+                          matInput
+                          type="text"
+                        />
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="full-width">
+                        <input
+                          placeholder="Ubgeo"
+                          formControlName="cliente_codigoubigeo"
+                          matInput
+                          type="text"
+                        />
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field class="full-width">
+                        <input
+                          placeholder="Pais"
+                          formControlName="cliente_pais"
+                          matInput
+                          type="text"
+                        />
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="full-width">
+                        <input
+                          placeholder="Ciudad"
+                          formControlName="cliente_ciudad"
+                          matInput
+                          type="text"
+                        />
+                        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </form>
+          </div>
+
+          <form [formGroup]="form">
+            <mat-card class="shipping-card">
+              <mat-card-content>
+                <div class="mat-elevation-z8">
+                  <div class="">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          (click)="openDialog()"
+                          class="btn btn-danger pull-right"
+                        >
+                          Agregar Producto
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table
+                      style="
+                        width: 100%;
+                        padding: 10px;
+
+                        border-inline-start: initial;
+                      "
+                    >
+                      <tr class="text-aling-table">
+                        <th>Descripcion</th>
+                        <th>Tipo IGV</th>
+                        <th>Unidad/Medida</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Sub Total</th>
+                        <th>Igv</th>
+                        <th>Importe</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr *ngFor="let dat of dataSource; index as i">
+                        <td>{{ dat.txtDESCRIPCION_DET }}</td>
+                        <td>
+                          {{ dat.txtPRECIO_TIPO_CODIGO | medida: tipoafect }}
+                        </td>
+                        <td>
+                          {{ dat.txtUNIDAD_MEDIDA_DET | medida: umedida }}
+                        </td>
+                        <td>
+                          <mat-form-field style="width: 80px;">
+                            <input
+                              type="number"
+                              matInput
+                              #postalCode
+                              maxlength="5"
+                              [value]="dat.txtPRECIO_DET"
+                              (keyup)="precio_edit($event, i)"
+                            />
+                            <mat-icon matSuffix style="font-size: 14px;"
+                              >mode_edit</mat-icon
+                            >
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field style="width: 80px;">
+                            <input
+                              type="number"
+                              matInput
+                              #postalCode
+                              maxlength="5"
+                              [value]="dat.txtCANTIDAD_DET"
+                              (keyup)="cantidad_edit($event, i)"
+                            />
+                            <mat-icon matSuffix style="font-size: 14px;"
+                              >mode_edit</mat-icon
+                            >
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          {{ dat.txtSUB_TOTAL_DET }}
+                        </td>
+                        <td>
+                          {{ dat.txtIGV }}
+                        </td>
+                        <td>
+                          {{
+                            strNumber(dat.txtIMPORTE_DET) +
+                              strNumber(dat.txtIGV)
+                          }}
+                        </td>
+                        <td>
+                          <button color="warn" (click)="deleteProducto(i)">
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="dataSource.length === 0">
+                        <td colspan="9" style="height: 30px;"></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </form>
+        </div>
+
+        <form [formGroup]="form">
+          <mat-card class="shipping-card">
+            <mat-card-header>
+              <mat-card-title>Detalle Documento</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-grid-list cols="3" rowHeight="60px">
+                <mat-grid-tile colspan="1">
+                  <div class="form-products">
+                    <mat-form-field class="full-width">
+                      <span matSuffix><mat-icon matSuffix>%</mat-icon></span>
+                      <input
+                        placeholder="Descuento"
+                        formControlName="total_descuento"
+                        matInput
+                        type="number"
+                        minlength="0"
+                        (keyup)="calculototales()"
+                      />
+                    </mat-form-field>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                  <mat-form-field class="full-width">
+                    <mat-label>Condicion de Pago</mat-label>
+                    <mat-select formControlName="condicionpago" value="01">
+                      <mat-option
+                        *ngFor="let doc of tipopago"
+                        [value]="doc.value"
+                      >
+                        {{ doc.viewValue }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>money</mat-icon>
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="3">
+                  <div class="form-products" style="top: 0px;">
+                    <h3>Resumen</h3>
+                    <table style="width: 100%;" class="text-aling-table-rigth">
+                      <tr>
+                        <th>
+                          Gravadas:
+                        </th>
+                        <th>
+                          <div *ngIf="total">
+                            {{ strNumber(suttotal) | decimales }}
+                          </div>
+                          <div *ngIf="total === 0">0.00</div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          (-) Descuentos:
+                        </th>
+                        <th>
+                          <div *ngIf="total">
+                            {{ strNumber(descuentos) | decimales }}
+                          </div>
+                          <div *ngIf="total === 0">0.00</div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          Igv:
+                        </th>
+                        <th>
+                          <div *ngIf="total">
+                            {{ strNumber(igv) | decimales }}
+                          </div>
+                          <div *ngIf="total === 0">0.00</div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>
+                          Total:
+                        </th>
+                        <th class="text">
+                          <div *ngIf="total">{{ total | decimales }}</div>
+                          <div *ngIf="total === 0">0.00</div>
+                        </th>
+                      </tr>
+                    </table>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                  <div class="form-products">
+                    <mat-form-field class="full-width">
+                      <mat-label>Serie Documento</mat-label>
+                      <mat-select formControlName="serie_comprobante">
+                        <mat-option
+                          *ngFor="let doc of serieComprobante"
+                          [value]="doc.value"
+                        >
+                          {{ doc.viewValue }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                  <div class="form-products">
+                    <mat-label>Gia de remision</mat-label>
+                    <mat-slide-toggle
+                      class="example-margin"
+                      [color]="color"
+                      [checked]="checked"
+                      value="1"
+                      formControlName="guia"
+                      [disabled]="true"
+                    >
+                      click
+                    </mat-slide-toggle>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                  <div class="form-products">
+                    <mat-form-field class="full-width">
+                      <textarea
+                        placeholder="Obserbacion"
+                        formControlName="observacion"
+                        matInput
+                        type="text"
+                      ></textarea>
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="3">
+                  <button
+                    mat-raised-button
+                    (click)="enviarDocumento()"
+                    (disabled)="(bntblok)"
+                    class="btn btn-danger pull-right"
+                  >
+                    Enviar Documento electronico
+                  </button>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </mat-card-content>
+          </mat-card>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

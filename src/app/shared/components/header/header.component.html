@@ -1,0 +1,51 @@
+<div class="header">
+  <div class="container">
+    <div class="header2">
+      <a href="">Tel: (+51)924600104</a>&nbsp;&nbsp;
+      <div style="text-align: end; text-decoration: none;"></div>
+    </div>
+  </div>
+</div>
+
+<mat-toolbar>
+  <mat-toolbar-row class="container">
+    <div class="row between-xs middle-xs header-row">
+      <nav>
+        <a
+          mat-button
+          matBadgeColor="warn"
+          routerLink="/home"
+          routerLinkActive="active"
+          >Inicio</a
+        >
+
+        <a
+          mat-button
+          matBadgeColor="warn"
+          routerLink="/products"
+          routerLinkActive="active"
+          >productos</a
+        >
+
+        <a
+          mat-button
+          matBadgeColor="warn"
+          routerLink="/contact"
+          routerLinkActive="active"
+          >contacto</a
+        >
+      </nav>
+      <div>
+        <a mat-button routerLink="/admin" routerLinkActive="active">Login</a>
+        <a mat-button routerLink="/admin" routerLinkActive="active">Register</a>
+        <a
+          routerLink="/order"
+          mat-raised-button
+          [matBadge]="total$ | async"
+          matBadgeColor="warn"
+          ><mat-icon>shopping_cart</mat-icon>Carrito</a
+        >
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

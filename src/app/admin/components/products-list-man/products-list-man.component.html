@@ -1,0 +1,132 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Lista General de productos</h4>
+            <p class="card-category">Inventario general stock de productos</p>
+            <button class="btn btn-info" (click)="invetario()">
+              Print Invetario
+            </button>
+
+            <button class="btn btn-info" (click)="presupuesto()">
+              Print Precio 1
+            </button>
+            <button class="btn btn-info" (click)="presupuesto2()">
+              Print Precio 2
+            </button>
+            <button class="btn btn-info" (click)="presupuesto3()">
+              Print Precio 3
+            </button>
+            <button class="btn btn-info" (click)="presupuesto4()">
+              Print Precio 4
+            </button>
+            <div *ngIf="rol === 1">
+              <button class="btn btn-info" (click)="stopprecio()">
+                Stock - Precio
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div *ngIf="loading" class="loader-background">
+                <div class="loader"></div>
+              </div>
+
+              <div *ngIf="total > 0 && rol === 1">
+                S/.{{ total | decimales }}
+              </div>
+              <div class="table-button">
+                <a
+                  mat-raised-button
+                  class="btn btn-danger pull-right"
+                  (click)="openDialog([])"
+                >
+                  Crear Producto
+                </a>
+              </div>
+              <table class="products-table">
+                <!-- Position Column -->
+                <tr>
+                  <th>CODIGO</th>
+                  <th>DESCRIPCION</th>
+                  <th>CANTIDAD</th>
+                  <th>SEDE</th>
+                  <th>P COMPRA</th>
+                  <th>PRECIO</th>
+                  <th>PRECIO 2</th>
+                  <th>PRECIO 3</th>
+                  <th>PRECIO 4</th>
+                  <th>U MEDIDA</th>
+                  <th>TIPO. AFECT</th>
+                  <th></th>
+                </tr>
+
+                <tr *ngFor="let item of productos">
+                  <td>
+                    {{ item.codigo }}
+                  </td>
+
+                  <td>
+                    {{ item.descripcion }}
+                  </td>
+
+                  <td>{{ item.cantidad }}</td>
+                  <td>{{ item.nombressede }}</td>
+                  <td>
+                    <div *ngIf="rol === 1">S/.{{ item.preciocompra }}</div>
+                  </td>
+                  <td>S/.{{ item.preciounitario }}</td>
+
+                  <td>S/.{{ item.precio1 }}</td>
+
+                  <td>S/. {{ item.precio2 }}</td>
+
+                  <td>S/. {{ item.precio3 }}</td>
+
+                  <td>
+                    {{ item.medida | medida: umedida }}
+                  </td>
+
+                  <td>
+                    {{ item.tipoafetacion | medida: tipoafect }}
+                  </td>
+
+                  <td>
+                    <button
+                      mat-raised-button
+                      type="button"
+                      (click)="openDialog(item)"
+                      matTooltip="Edit Task"
+                      class="btn btn-primary btn-link btn-sm btn-just-icon"
+                    >
+                      <i class="material-icons">edit</i>
+                    </button>
+                    <button
+                      mat-raised-button
+                      type="button"
+                      (click)="delete(item.id)"
+                      matTooltip="Remove"
+                      class="btn btn-danger btn-link btn-sm btn-just-icon"
+                    >
+                      <i class="material-icons">close</i>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+
+              <mat-paginator
+                [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="onChangePaginate($event)"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

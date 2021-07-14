@@ -1,0 +1,23 @@
+<div style="min-height: 300px;">
+  <h4>Lista de pagos</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Descripcion</th>
+        <th>Monto</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ab of abonos">
+        <td>{{ ab.adddate | date }}</td>
+        <td>{{ ab.descripcion }}</td>
+
+        <td>{{ ab.monto | decimales }}</td>
+        <td *ngIf="ab.tipo === 1">Efectivo</td>
+        <td *ngIf="ab.tipo === 2">Transferencia</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,10 @@
+table {
+  width: 100%;
+  border: 1px solid black;
+  font-size: 11px;
+}
+th {
+  background-color: rgb(204, 204, 204);
+  color: black;
+  padding-bottom: 5px;
+}

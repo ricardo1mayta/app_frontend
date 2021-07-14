@@ -1,0 +1,33 @@
+.products-table {
+  width: 100%;
+  margin: 0%;
+}
+.table-containt {
+  width: 96%;
+  margin: 2%;
+}
+
+.table-button {
+  display: grid;
+  justify-items: flex-end;
+
+  padding-bottom: 5px;
+}
+
+.mat-column-actions {
+  width: 200px;
+  background-color: lightsteelblue;
+
+  margin-left: 10px;
+}
+
+.mat-column-actions button {
+  margin-left: 10px;
+}
+.hijo {
+  position: absolute;
+  top: 30%;
+  bottom: 0;
+  left: 40%;
+  right: 40%;
+}

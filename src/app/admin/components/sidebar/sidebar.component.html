@@ -1,0 +1,21 @@
+<div class="logo">
+  <a class="simple-text" routerLink="./">{{ user.edmisor.nom_comercial }}</a>
+</div>
+<div class="sidebar-wrapper">
+  <div *ngIf="isMobileMenu()">
+    <ul class="nav navbar-nav nav-mobile-menu">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)" (click)="logout()">
+          <i class="material-icons">person</i>
+          <p>
+            <span class="d-lg-none d-md-block">Account</span>
+          </p>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <ul class="nav">
+    <ng-material-multilevel-menu [configuration]="config" [items]="appitems">
+    </ng-material-multilevel-menu>
+  </ul>
+</div>

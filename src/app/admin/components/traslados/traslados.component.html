@@ -1,0 +1,145 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4>Nuevo Traslado</h4>
+
+            <p class="card-category">Traslado interno</p>
+          </div>
+          <div class="card-body">
+            <div class="form-products">
+              <form [formGroup]="form">
+                <mat-card class="shipping-card">
+                  <mat-card-content>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                          <mat-label>Origen</mat-label>
+                          <mat-select
+                            formControlName="origen"
+                            (change)="changeSuit($event)"
+                          >
+                            <mat-option
+                              *ngFor="let doc of subsedes"
+                              [value]="doc.idssede"
+                            >
+                              {{ doc.nombressede }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                          <mat-label>Destino</mat-label>
+                          <mat-select
+                            formControlName="destino"
+                            (change)="changeSuit2($event)"
+                          >
+                            <mat-option
+                              *ngFor="let doc of subsedes"
+                              [value]="doc.idssede"
+                            >
+                              {{ doc.nombressede }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </form>
+            </div>
+
+            <div class="form-products">
+              <form [formGroup]="form">
+                <mat-card class="shipping-card">
+                  <mat-card-header>
+                    <mat-card-title>Lista de Productos:</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <div class="mat-elevation-z8">
+                      <div class="">
+                        <button
+                          mat-raised-button
+                          class="btn btn-danger pull-right"
+                          (click)="openDialog()"
+                        >
+                          Agregar Producto
+                        </button>
+                      </div>
+                      <table
+                        style="
+                          width: 100%;
+                          padding: 10px;
+
+                          border-inline-start: initial;
+                        "
+                      >
+                        <tr class="text-aling-table">
+                          <th>Descripcion</th>
+                          <th>Tipo IGV</th>
+                          <th>Unidad/Medida</th>
+
+                          <th>Cantidad</th>
+
+                          <th>Actions</th>
+                        </tr>
+                        <tr *ngFor="let dat of dataSource; index as i">
+                          <td>{{ dat.txtDESCRIPCION_DET }}</td>
+                          <td>
+                            {{ dat.txtPRECIO_TIPO_CODIGO | medida: tipoafect }}
+                          </td>
+                          <td>
+                            {{ dat.txtUNIDAD_MEDIDA_DET | medida: umedida }}
+                          </td>
+
+                          <td>
+                            <mat-form-field style="width: 80px">
+                              <input
+                                type="number"
+                                matInput
+                                #postalCode
+                                maxlength="5"
+                                [value]="dat.txtCANTIDAD_DET"
+                                (keyup)="cantidad_edit($event, i)"
+                              />
+                              <mat-icon matSuffix style="font-size: 14px"
+                                >mode_edit</mat-icon
+                              >
+                            </mat-form-field>
+                          </td>
+
+                          <td>
+                            <button color="warn" (click)="deleteProducto(i)">
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="dataSource.length === 0">
+                          <td colspan="9" style="height: 30px"></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </form>
+            </div>
+
+            <div class="form-products">
+              <button
+                mat-raised-button
+                class="btn btn-primary pull-left"
+                (click)="enviarDocumento()"
+              >
+                GUARDAR TRASLADO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

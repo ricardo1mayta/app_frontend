@@ -1,0 +1,188 @@
+<h1 mat-dialog-title>Producto: {{ titulo }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" method="post" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <span matPrefix><mat-icon matSuffix>receipt</mat-icon></span>
+          <input
+            type="text"
+            placeholder="Descripcion"
+            matInput
+            formControlName="descripcion"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Categorias</mat-label>
+          <span matPrefix><mat-icon matSuffix>format_clear</mat-icon></span>
+          <mat-select formControlName="categoria" [value]="categoria">
+            <mat-option *ngFor="let doc of categoriaDoc" [value]="doc.value">
+              {{ doc.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Tipo Afe Igv</mat-label>
+          <span matPrefix><mat-icon matSuffix>format_clear</mat-icon></span>
+          <mat-select formControlName="tipoafetacion" [value]="tipoafectacion">
+            <mat-option *ngFor="let doc of tipoDoc" [value]="doc.value">
+              {{ doc.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <mat-label>Unidad/Medida</mat-label>
+          <span matPrefix><mat-icon matSuffix>local_bar</mat-icon></span>
+          <mat-select formControlName="medida" [value]="medida">
+            <mat-option *ngFor="let doc of umedida" [value]="doc.value">
+              {{ doc.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Precio Por defecto"
+            matInput
+            class="example-right-align"
+            formControlName="preciounitario"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Precio 2"
+            matInput
+            class="example-right-align"
+            formControlName="precio1"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Precio 3"
+            matInput
+            class="example-right-align"
+            formControlName="precio2"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Precio 4"
+            matInput
+            class="example-right-align"
+            formControlName="precio3"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4" *ngIf="usr.rol === 1">
+        <mat-form-field>
+          <span matPrefix>No &nbsp; </span>
+          <input
+            type="number"
+            placeholder="Cantidad Stock"
+            matInput
+            class="example-right-align"
+            formControlName="cantidad"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4" *ngIf="usr.rol === 1">
+        <mat-form-field>
+          <span matPrefix>No &nbsp; </span>
+          <input
+            type="number"
+            placeholder="Precio Compra"
+            matInput
+            class="example-right-align"
+            formControlName="preciocompra"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field>
+          <textarea
+            placeholder="Descripcion Corta"
+            formControlName="descc"
+            matInput
+            type="text"
+          ></textarea>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field>
+          <textarea
+            placeholder="Descripcion Larga"
+            formControlName="descl"
+            matInput
+            type="text"
+          ></textarea>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <input
+      (change)="fileChange($event)"
+      type="file"
+      class="custom-file-input"
+      id="inputGroupFile01"
+    />
+    <img [src]="filename" alt="" width="60" />
+    <mat-form-field>
+      <mat-label>Estado Web</mat-label>
+      <span matPrefix><mat-icon matSuffix>local_bar</mat-icon></span>
+      <mat-select formControlName="statuspublic">
+        <mat-option *ngFor="let doc of stadopublic" [value]="doc.value">
+          {{ doc.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    (click)="nuevo()"
+    [disabled]="form.invalid"
+    mat-raised-button
+    color="warn"
+    [mat-dialog-close]="form.value"
+    cdkFocusInitial
+  >
+    Registrar
+  </button>
+  <span style="color: crimson; display: inline; justify-items: end;">{{
+    menssage
+  }}</span>
+</div>

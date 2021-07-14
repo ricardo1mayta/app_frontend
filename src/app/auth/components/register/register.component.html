@@ -1,0 +1,52 @@
+<form [formGroup]="form">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Register User</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <input
+              placeholder="User"
+              formControlName="name"
+              matInput
+              type="text"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <input
+              placeholder="Email"
+              formControlName="email"
+              matInput
+              type="email"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <input
+              placeholder="Password"
+              formControlName="password"
+              matInput
+              type="password"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button [disabled]="form.invalid" mat-raised-button type="submit">
+        Guardar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

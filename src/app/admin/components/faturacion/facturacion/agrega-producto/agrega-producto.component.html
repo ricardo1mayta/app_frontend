@@ -1,0 +1,175 @@
+<h1 mat-dialog-title>Agregar Producto: {{ data.numero }}</h1>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-md-12">
+      <mat-form-field class="example-full-width">
+        <span matPrefix><mat-icon matSuffix>search</mat-icon></span>
+        <input
+          type="text"
+          placeholder="Buscar Producto"
+          aria-label="descripcion"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option.descripcion"
+            (onSelectionChange)="cargarData(option)"
+          >
+            {{ option.descripcion }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+  </div>
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="full-width">
+          <mat-label>Tipo Afe Igv</mat-label>
+          <span matPrefix><mat-icon matSuffix>format_clear</mat-icon></span>
+          <mat-select
+            formControlName="txtPRECIO_TIPO_CODIGO"
+            [value]="tipoafectacion"
+          >
+            <mat-option *ngFor="let doc of tipoDoc" [value]="doc.value">
+              {{ doc.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix> <mat-icon matSuffix>view_column</mat-icon></span>
+          <input
+            type="text"
+            placeholder="Codigo"
+            formControlName="txtCODIGO_DET"
+            matInput
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width">
+          <mat-label>Unidad/Medida</mat-label>
+          <span matPrefix><mat-icon matSuffix>local_bar</mat-icon></span>
+          <mat-select formControlName="txtUNIDAD_MEDIDA_DET" [value]="medida">
+            <mat-option *ngFor="let doc of umedida" [value]="doc.value">
+              {{ doc.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <span matPrefix><mat-icon matSuffix>receipt</mat-icon></span>
+          <input
+            type="text"
+            placeholder="Descripcion"
+            matInput
+            formControlName="txtDESCRIPCION_DET"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Precio Unitario(inc Igv)"
+            matInput
+            class="example-right-align"
+            formControlName="txtPRECIO_DET"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Precio Unit(Sin Igv)"
+            matInput
+            formControlName="txtPRECIO_SIN_IGV_DET"
+            [value]="preciosinigv"
+           
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix><mat-icon matSuffix>layers</mat-icon></span>
+
+          <input
+            type="number"
+            placeholder="Cantidad"
+            matInput
+            formControlName="txtCANTIDAD_DET"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Sub Total"
+            matInput
+            formControlName="txtSUB_TOTAL_DET"
+            [value]="subtotal"
+           
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Igv"
+            matInput
+            formControlName="txtIGV"
+            [value]="subtotaligv"
+           
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Total"
+            matInput
+            formControlName="txtIMPORTE_DET"
+            [value]="total"
+           
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    [disabled]="form.invalid"
+    mat-raised-button
+    color="warn"
+    [mat-dialog-close]="form.value"
+    
+  >
+    Agregar
+  </button>
+  <span style="color: crimson; display: inline; justify-items: end">{{
+    menssage
+  }}</span>
+</div>

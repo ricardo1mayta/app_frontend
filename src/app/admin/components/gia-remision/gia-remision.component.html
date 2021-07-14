@@ -1,0 +1,370 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4>FACTURA ELECTRÓNICA</h4>
+
+            <p class="card-category">Documento electronico valido por Sunat</p>
+          </div>
+          <div class="card-body">
+            <div *ngIf="loading" class="loader-background">
+              <div class="loader"></div>
+            </div>
+            <div class="form-products">
+              <h1>Guia Remision</h1>
+             
+              <form [formGroup]="form">
+                <mat-card class="shipping-card">
+                 
+                  <mat-card-content>
+                    <div class="section">
+                      <mat-label>informacion del cliente</mat-label>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>No</th>
+                            <th>
+                              :
+                              {{ numero_guia }}
+                            </th>
+                          </tr>
+                          <tr>
+                            <th>RUC</th>
+                            <th>:{{ ruc }}</th>
+                          </tr>
+                          <tr>
+                            <th>CLIENTE</th>
+                            <th colspan="3">:{{ cliente }}</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+                    <div class="section">
+                      <mat-label>Informacion de la guia remision</mat-label>
+                      <div class="row">
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Motivo de traslado</mat-label>
+                            <mat-select formControlName="codmotivo_traslado">
+                              <mat-option
+                                *ngFor="let doc of tipoTras"
+                                [value]="doc.value"
+                                (onSelectionChange)="
+                                  motivo_traslado(doc.viewValue, $event)
+                                "
+                              >
+                                {{ doc.viewValue }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field appearance="legacy">
+                            <mat-label>Descripcion del motivo</mat-label>
+                            <input
+                              matInput
+                              placeholder="Placeholder"
+                              type="text"
+                              formControlName="motivo_traslado"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field appearance="legacy">
+                            <mat-label>Peso</mat-label>
+                            <input
+                              matInput
+                              placeholder="Placeholder"
+                              type="text"
+                              formControlName="peso"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field appearance="legacy">
+                            <mat-label>Numero Paquetes</mat-label>
+                            <input
+                              matInput
+                              placeholder="Placeholder"
+                              type="text"
+                              formControlName="numero_paquetes"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Tipo transportista</mat-label>
+                            <mat-select formControlName="codtipo_transportista">
+                              <mat-option
+                                *ngFor="let doc of codigoTras"
+                                [value]="doc.value"
+                              >
+                                {{ doc.viewValue }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="section">
+                      <mat-label>Informacion del transportista</mat-label>
+                      <div class="row">
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Tipo Doc. Transporte.</mat-label>
+                            <mat-select
+                              formControlName="tipo_documento_transporte"
+                            >
+                              <mat-option
+                                *ngFor="let doc of tipoDoc"
+                                [value]="doc.value"
+                              >
+                                {{ doc.viewValue }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field appearance="legacy">
+                            <mat-label>No: De RUC Transporte</mat-label>
+                            <input
+                              matInput
+                              placeholder="Placeholder"
+                              type="text"
+                              formControlName="nro_documento_transporte"
+                            />
+                            <button
+                              matSuffix
+                              mat-button
+                              (click)="buscarRuc($event)"
+                            >
+                              <mat-icon>search</mat-icon>
+                            </button>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <input
+                              placeholder="Razon Social"
+                              formControlName="razon_social_transporte"
+                              matInput
+                              type="text"
+                            />
+                            <mat-icon matSuffix
+                              >sentiment_very_satisfied</mat-icon
+                            >
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="section">
+                      <mat-label>Datos de destino</mat-label>
+                      <div class="row">
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <input
+                              placeholder="Direccion Destino"
+                              formControlName="dir_destino"
+                              matInput
+                              type="text"
+                            />
+                            <mat-icon matSuffix>edit_location</mat-icon>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Departamento Llegada.</mat-label>
+                            <mat-select>
+                              <mat-option
+                                *ngFor="let doc of departamentosl"
+                                [value]="doc.id"
+                                (onSelectionChange)="
+                                  cargarProvinciasl(doc.id, $event)
+                                "
+                              >
+                                {{ doc.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Provincia de llegada</mat-label>
+                            <mat-select>
+                              <mat-option
+                                *ngFor="let doc of provinciasl"
+                                [value]="doc.id"
+                                (onSelectionChange)="
+                                  cargarDistritosl(doc.id, $event)
+                                "
+                              >
+                                {{ doc.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Distrito de llegada</mat-label>
+                            <mat-select formControlName="ubigeo_destino">
+                              <mat-option
+                                *ngFor="let doc of distritosl"
+                                [value]="doc.id"
+                              >
+                                {{ doc.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="section">
+                      <mat-label>Datos de partida</mat-label>
+                      <div class="row">
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <input
+                              placeholder="Direccion Partida"
+                              formControlName="dir_partida"
+                              matInput
+                              type="text"
+                            />
+                            <mat-icon matSuffix>edit_location</mat-icon>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Departamento partida.</mat-label>
+                            <mat-select>
+                              <mat-option
+                                *ngFor="let doc of departamentos"
+                                [value]="doc.id"
+                                (onSelectionChange)="
+                                  cargarProvincias(doc.id, $event)
+                                "
+                              >
+                                {{ doc.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Provincia partida</mat-label>
+                            <mat-select>
+                              <mat-option
+                                *ngFor="let doc of provincias"
+                                [value]="doc.id"
+                                (onSelectionChange)="
+                                  cargarDistritos(doc.id, $event)
+                                "
+                              >
+                                {{ doc.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-xs">
+                          <mat-form-field class="full-width">
+                            <mat-label>Distrito partida</mat-label>
+                            <mat-select formControlName="ubigeo_partida">
+                              <mat-option
+                                *ngFor="let doc of distritos"
+                                [value]="doc.id"
+                              >
+                                {{ doc.name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </form>
+            </div>
+
+            <div class="form-products">
+              <form [formGroup]="form">
+                <mat-card class="shipping-card">
+                  <mat-card-header>
+                    <mat-card-title>Lista de Productos</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <div class="mat-elevation-z8">
+                      <mat-accordion class="example-headers-align" multi>
+                        <mat-expansion-panel
+                          *ngFor="let dat of dataSource; index as i"
+                        >
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              {{
+                                dat.CODIGO_PRODUCTO + " - " + dat.DESCRIPCION
+                              }}
+                            </mat-panel-title>
+                            <mat-panel-description>
+                              Cantidad: {{ dat.CANTIDAD }}
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+
+                          <mat-form-field>
+                            <mat-label>Agrega serie</mat-label>
+                            <input
+                              autocomplete="off"
+                              matInput
+                              (keyup.enter)="
+                                add(
+                                  $event,
+                                  dat.CODIGO_PRODUCTO,
+                                  dat.NUMERO_ORDEN,
+                                  dat.CANTIDAD
+                                )
+                              "
+                            />
+                          </mat-form-field>
+                          <mat-chip-list aria-label="Fish selection">
+                            <div *ngFor="let serie of series; index as i">
+                              <mat-chip
+                                color="primary"
+                                *ngIf="serie.idproducto === dat.CODIGO_PRODUCTO"
+                                [removable]="removable"
+                                (removed)="remove(i)"
+                                selected
+                                >{{ serie.serie }}
+                                <mat-icon matChipRemove *ngIf="removable"
+                                  >cancel</mat-icon
+                                ></mat-chip
+                              >
+                            </div>
+                          </mat-chip-list>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                    </div>
+                    <br />
+                  </mat-card-content>
+                </mat-card>
+              </form>
+              <div class="table-button">
+                <button
+                  *ngIf="status === 1"
+                  mat-raised-button
+                  matBadge="{{ series.length }}"
+                  color="primary"
+                  (click)="generarGuia()"
+                >
+                  Generar Guia
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

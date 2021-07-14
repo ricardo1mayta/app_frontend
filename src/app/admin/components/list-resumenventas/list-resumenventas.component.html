@@ -1,0 +1,124 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4>Facturas y Boletas</h4>
+            <p class="card-category">Documentos emitidos a Sunat</p>
+            
+            <p>Total Facturado: {{ total }}</p>
+          </div>
+          
+          <div class="card-body">
+            <form [formGroup]="form" class="form-inline">
+                   
+                  
+           <div class="col-md-3"> 
+             <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text">Año</label>
+            </div>
+            <select class="custom-select"[formControl]="anoControl" name="food"  >
+              <option>Selecionar</option>
+              <option *ngFor="let food of ano" [value]="food.value">
+                {{food.viewValue}}
+              </option>
+            </select>
+          </div>
+        </div>
+           <div class="col-md-3">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text">Mes</label>
+              </div>
+              <select class="custom-select"[formControl]="mesControl" name="food"  >
+                <option>Selecionar</option>
+                <option *ngFor="let food of mes" [value]="food.value">
+                  {{food.viewValue}}
+                </option>
+              </select>
+            </div>
+           </div>
+            
+             
+           <div class="col-md-4"> 
+             
+            <button type="submit" class="btn btn-primary mb-2" (click)="mostrar()">Mostrar</button>
+            <button type="submit" class="btn btn-primary mb-2"  (click)=" exportAsXLSX()">  <mat-icon> cloud_download</mat-icon> Descargar</button>
+           
+           </div>
+              
+             
+
+         
+         
+         
+        </form>
+            <div class="table-responsive">
+              <div *ngIf="loading" class="loader-background">
+                <div class="loader"></div>
+              </div>
+               
+              <div class="table-containt" >
+               
+                  
+              
+                <table  class="table" >
+                  <thead>
+                    <tr style="background-color:gold;">
+                      <td >FECHA</td>
+                      <td >COMPROBANTE</td>
+                      <td >CLIENTE</td>
+                      <td >RUC</td>
+                      <td >Sub-Total</td>  
+                      <td >Igv</td>
+                      <td >Total</td>
+                      <td >Moneda</td>  
+                      <td >Sunat</td>                    
+                   
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of ventas">
+                      <td >
+                        {{ item.fecha  }}
+                      </td>
+                      <td >
+                        {{
+                          item.Numero
+                        }}
+                      </td>
+                      <td >
+                        {{ item.cliente_nombre }}
+                      </td>
+                      <td >
+                        {{ item.cliente_numerodocumento }}
+                      </td>
+                      <td >
+                        {{ item.sub_total }}
+                      </td>
+                      <td >
+                        {{ item.total_igv }}
+                      </td>
+                     
+                      <td >{{ item.total }}</td>
+                      <td >
+                        {{ item.cod_moneda }}
+                      </td>
+                      <td>{{item.estado_envio_sunat}}</td>
+                    <tr>
+                  </tbody>
+                
+
+
+                
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

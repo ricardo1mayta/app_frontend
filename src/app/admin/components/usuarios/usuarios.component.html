@@ -1,0 +1,90 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4>Lista de Usuarios Registrados</h4>
+            <p class="card-category">Usuarios registrados al sistema</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div class="table-button">
+                <a mat-raised-button color="primary" routerLink="create">
+                  Crear Usuario
+                </a>
+              </div>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th >ID</th> 
+                    <th >Nombres</th>
+                    <th >Apellidos</th>
+                    <th >Email</th>
+                    <th >Telefono</th>
+                    <th >Img</th>
+                    <th >Rol</th>
+                    <th >Estado</th>
+                    <th >Actions</th>
+                   </tr>
+                </thead>
+               
+                  <tbody>
+                    
+                  
+              <tr  *ngFor="let user of user">
+                <td >{{ user.id }}</td>
+                <td >{{ user.firtsName }}</td>
+                <td >{{ user.lastName }}</td>
+                <td >{{ user.email }}</td>
+                <td >{{ user.telefono }}</td>
+                <td >{{ user.img }}</td>
+                <td >{{ user.rol | rol }}</td>
+                <td >
+                  {{ user.status | estado }}
+                </td>
+                <td >
+                  <button
+                    mat-button
+                    mat-raised-button
+                    [routerLink]="['edit', user.id]"
+                    *ngIf="usr.rol === 1"
+                  >
+                    Editar
+                  </button>
+                </td>
+                  <td >
+                  <button
+                    mat-button
+                    mat-raised-button
+                    color="warn"
+                    (click)="deleteUser(user.id)"
+                    *ngIf="usr.rol === 1"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>    
+            </tbody>
+
+
+
+               
+              </table>
+            
+
+              <mat-paginator
+                [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="onChangePaginate($event)"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4>Ganancias y detalle de ventas</h4>
+            <p class="card-category">
+              Suma de montos vendidos fecha de consulta
+            </p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div *ngIf="loading" class="loader-background">
+                <div class="loader"></div>
+              </div>
+
+              <div class="table-containt">
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field color="accent" appearance="legacy">
+                      <mat-label>Fecha Inicio</mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="picker1"
+                        (dateChange)="addEvent('change', $event)"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker1"
+                        (dateChange)="addEvent('change', $event)"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #picker1
+                        disabled="false"
+                      ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field color="accent" appearance="legacy">
+                      <mat-label>Fecha Fin</mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="picker2"
+                        (dateChange)="addEvent2('change', $event)"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker2"
+                        (dateChange)="addEvent2('change', $event)"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #picker2
+                        disabled="false"
+                        color="primary"
+                      ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <button mat-raised-button (click)="consultadata()">
+                      Consultar
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <table class="products-table table">
+                <!-- Position Column -->
+                <thead>
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Ventas Totales</th>
+                    <th>Compras Totales</th>
+                    <th>Ganancia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ventas of ventas">
+                    <td>
+                      {{ ventas.tipo }}
+                    </td>
+                    <td>
+                      {{ ventas.total }}
+                    </td>
+
+                    <td>
+                      {{ ventas.compras }}
+                    </td>
+
+                    <td>{{ ventas.ganancia }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

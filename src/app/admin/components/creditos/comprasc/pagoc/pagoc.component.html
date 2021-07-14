@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Abonar : {{ titulo }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" method="post" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-xs">
+        <mat-form-field class="full-width">
+          <span matPrefix><mat-icon matSuffix>receipt</mat-icon></span>
+          <input
+            type="text"
+            placeholder="Descripcion"
+            matInput
+            formControlName="descripcion"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs">
+        <mat-form-field>
+          <span matPrefix>S/.&nbsp; </span>
+          <input
+            type="number"
+            placeholder="Monto Abonar"
+            matInput
+            class="example-right-align"
+            formControlName="monto"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="col-xs">
+        <mat-form-field>
+          <mat-label>Tipo</mat-label>
+          <span matPrefix><mat-icon matSuffix>local_bar</mat-icon></span>
+          <mat-select formControlName="tipo">
+            <mat-option *ngFor="let doc of stadopublic" [value]="doc.value">
+              {{ doc.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    [disabled]="form.invalid"
+    mat-raised-button
+    color="warn"
+    [mat-dialog-close]="form.value"
+    cdkFocusInitial
+    (click)="pagarfraccion()"
+  >
+    Registrar Pago
+  </button>
+  <span style="color: crimson; display: inline; justify-items: end;">{{
+    menssage
+  }}</span>
+</div>

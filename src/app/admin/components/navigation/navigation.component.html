@@ -1,0 +1,73 @@
+<div class="wrapper">
+  <div class="sidebar" data-color="danger" data-background-color="white">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="main-panel">
+    <div
+      style="
+        background: linear-gradient(60deg, #ef5350, #e53935);
+        height: 60px;
+      "
+    >
+      <app-navbar></app-navbar>
+    </div>
+    <div style="margin-top: -90px;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!--
+
+
+
+<mat-sidenav-container class="sidenav-container">
+  
+  <mat-sidenav
+    #drawer
+    class="sidenav color-menu-nav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar style="color: white;">
+      <a mat-list-item style="text-decoration: none;" routerLink="./">{{
+        user.edmisor.nom_comercial
+      }}</a></mat-toolbar
+    >
+    <mat-nav-list> </mat-nav-list>
+
+   
+    <ng-material-multilevel-menu [configuration]="config" [items]="appitems">
+    </ng-material-multilevel-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon red " style="color: white;"
+          >menu</mat-icon
+        >
+      </button>
+      <span>Facturame Pe </span>
+      <div class="user">
+        <h3>
+          {{ user.firtsName + " " + user.lastName }}
+
+          <mat-icon style="cursor: pointer;" (click)="logout()">login</mat-icon>
+
+          <mat-icon style="cursor: pointer;">account_circle</mat-icon>
+        </h3>
+      </div>
+    </mat-toolbar>
+ 
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+-->

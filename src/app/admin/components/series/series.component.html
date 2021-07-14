@@ -1,0 +1,111 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4>SERIES DEL DOCUMENTO ELECTRONICO</h4>
+  
+              <p class="card-category">ingresar todas las series correspondientes</p>
+            </div>
+            <div class="card-body">
+              <div *ngIf="loading" class="loader-background">
+                <div class="loader"></div>
+              </div>
+              <div class="form-products">
+                <h1>Guia Remision</h1>
+               
+              </div>
+  
+              <div class="form-products">
+                <h3>Lista de Productos</h3>
+                <table  class="table" >
+                    <thead>
+                      <tr style="background-color:gold;">
+                        <td >Descripcion</td>
+                        <td >Cantidad</td>
+                        <td >Precio</td>
+                        <td >Total</td>
+                        <td >Serie</td>
+                      
+                                         
+                     
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr  *ngFor="let item of detalle" style="color:black">
+                       <td>{{item.txtDESCRIPCION_DET}}
+                        <mat-form-field>
+                            <mat-label>Agrega serie</mat-label>
+                            <input
+                              autocomplete="off"
+                              matInput
+                              (keyup.enter)="
+                                add(
+                                  $event,
+                                  item.idPRODUCTO,
+                                  id,
+                                  item.txtCANTIDAD_DET
+                                )
+                              "
+                            />
+                          </mat-form-field>
+                          <mat-chip-list aria-label="Fish selection">
+                            <div *ngFor="let serie of series; index as i">
+                              <mat-chip
+                                color="primary"
+                                *ngIf=" strNumber(serie.idproducto) === strNumber(item.idPRODUCTO)"
+                                [removable]="removable"
+                                (removed)="remove(i)"
+                                [selectable]="selectable"
+                                >{{ serie.serie }}
+                                <mat-icon matChipRemove *ngIf="removable"
+                                  >cancel</mat-icon
+                                ></mat-chip
+                              >
+                            </div>
+                          </mat-chip-list>
+                        
+                           
+                         
+                        </td>
+                       <td>{{item.txtCANTIDAD_DET}}</td>
+                       <td>{{item.txtPRECIO_DET}}</td>
+                       <td>{{item.txtSUB_TOTAL_DET}}</td> 
+                       <td>
+                       
+                           
+                           
+                           
+                         
+                       </td>              
+
+                        
+                      <tr>
+                          
+                    </tbody>
+                  
+  
+  
+                  
+                  </table>
+               
+                <div class="table-button">
+                  <button
+                   
+                    mat-raised-button
+                    
+                    color="warn"
+                   (click)="actualizarSeries() "
+                  >
+                    Actualizar series
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

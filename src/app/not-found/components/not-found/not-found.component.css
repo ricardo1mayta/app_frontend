@@ -1,0 +1,16 @@
+.img-principal {
+  margin-top: -20px;
+  height: 100%;
+}
+.padre {
+  display: table;
+
+  height: 100%;
+  margin: auto;
+}
+.login {
+  display: table-cell;
+  vertical-align: middle;
+
+  width: 400px;
+}

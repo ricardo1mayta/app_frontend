@@ -1,0 +1,45 @@
+@import "~@angular/material/_theming.scss";
+$primary: mat-palette($mat-indigo);
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar .mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.header-admin {
+  /*background-color: #f4b80a;
+  background: rgb(34, 31, 33);*/
+  background-color: mat-color($primary);
+}
+
+.header-admin span {
+  color: #f9fffd;
+}
+
+.color-menu-nav {
+  background-color: mat-color($primary);
+}
+
+.color-menu-nav a {
+  color: white;
+}
+.user {
+  display: block;
+  margin: 0 0 0 auto;
+  color: rgb(221, 221, 221);
+}
+.mimenu {
+  width: 100%;
+}

@@ -1,0 +1,127 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4>Lista de Productos despachados</h4>
+            <p class="card-category">Productos vendidos</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div *ngIf="loading" class="loader-background">
+                <div class="loader"></div>
+              </div>
+
+              <div class="table-containt">
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field color="accent" appearance="legacy">
+                      <mat-label>Fecha Inicio</mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="picker1"
+                        (dateChange)="addEvent('change', $event)"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker1"
+                        (dateChange)="addEvent('change', $event)"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #picker1
+                        disabled="false"
+                      ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field color="accent" appearance="legacy">
+                      <mat-label>Fecha Fin</mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="picker2"
+                        (dateChange)="addEvent2('change', $event)"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker2"
+                        (dateChange)="addEvent2('change', $event)"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #picker2
+                        disabled="false"
+                        color="primary"
+                      ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <button mat-raised-button (click)="consultadata()">
+                      Consultar
+                    </button>
+                  </div>
+                </div>
+                <table class="products-table table">
+                  <!-- Position Column -->
+                  <thead style="background-color: rgb(224, 223, 223);">
+                    <tr>
+                      <td colspan="7">Provedor</td>
+                      <td colspan="2">Producto</td>
+                      <td>Total</td>
+                      <td>S/.{{ total }}</td>
+                    </tr>
+                    <tr>
+                      <td>FECHA</td>
+                      <td>COMPROBANTE</td>
+                      <td>CLIENTE</td>
+                      <td>RUC</td>
+                      <td>VENDEDOR</td>
+                      <td>TIPO PAGO</td>
+                      <td>TOTAL</td>
+                      <td>CODIGO PROD</td>
+                      <td>PRODUCTO</td>
+                      <td>PRECIO</td>
+                      <td>CANTIDAD</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ventas of ventas">
+                      <td>
+                        {{ fecha(ventas.adddate) }}
+                      </td>
+
+                      <td>
+                        {{
+                          ventas.serie_comprobante +
+                            "-" +
+                            ventas.numero_comprobante
+                        }}
+                      </td>
+
+                      <td>{{ ventas.cliente_nombre }}</td>
+
+                      <td>
+                        {{ ventas.cliente_numerodocumento }}
+                      </td>
+                      <td>{{ ventas.firtsName }}</td>
+                      <td>{{ ventas.nombre }}</td>
+                      <td>S/.{{ ventas.total }}</td>
+
+                      <td>{{ ventas.txtCODIGO_DET }}</td>
+                      <td>{{ ventas.txtDESCRIPCION_DET }}</td>
+                      <td style="text-align: end;">
+                        S/. {{ ventas.txtPRECIO_DET | decimales }}
+                      </td>
+                      <td style="text-align: end;">
+                        {{ ventas.txtCANTIDAD_DET }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h3>Cierre de Caja</h3>
+            <p class="card-category">
+              Suma de montos vendidos por dia y por vendedor
+            </p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div *ngIf="loading" class="loader-background">
+                <div class="loader"></div>
+              </div>
+
+              <div class="table-containt">
+                <mat-form-field color="accent" appearance="legacy">
+                  <mat-label>Fecha Inicio</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker1"
+                    (dateChange)="addEvent('change', $event)"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                    (dateChange)="addEvent('change', $event)"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                </mat-form-field>
+
+                <button mat-raised-button (click)="consultadata()">
+                  Consultar
+                </button>
+                <table class="mat-elevation-z8 products-table">
+                  <!-- Position Column -->
+                  <thead>
+                    <tr>
+                      <th>Vendedor</th>
+                      <th>Tipo</th>
+                      <th>Monto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ventas of ventas">
+                      <td>
+                        {{ ventas.idusuario }}
+                      </td>
+
+                      <td>
+                        {{ ventas.condicionpago }}
+                      </td>
+
+                      <td>{{ ventas.total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
